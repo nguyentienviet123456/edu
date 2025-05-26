@@ -12,7 +12,10 @@ import java.util.List;
 
 @Repository
 public interface UserAnswerRepository extends JpaRepository<UserAnswer, Long> {
-    
+
+    // Find answers by quiz attempt
+    List<UserAnswer> findByQuizAttemptAndIsCorrectTrue(QuizAttempt quizAttempt);
+
     // Find answers by quiz attempt
     List<UserAnswer> findByQuizAttempt(QuizAttempt quizAttempt);
     

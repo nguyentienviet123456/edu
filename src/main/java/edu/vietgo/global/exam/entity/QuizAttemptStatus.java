@@ -4,5 +4,6 @@ public enum QuizAttemptStatus {
     IN_PROGRESS,
     COMPLETED,
     ABANDONED,
-    TIMED_OUT
+    TIMED_OUT,
+    SUBMITTED
 } 

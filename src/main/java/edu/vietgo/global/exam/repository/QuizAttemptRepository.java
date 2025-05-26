@@ -42,6 +42,8 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Long> 
     
     // Find attempts by user ID and status
     List<QuizAttempt> findByUserIdAndStatus(Long userId, QuizAttemptStatus status);
+
+    List<QuizAttempt> findByQuizIdAndUserIdAndStatus(Long quizId, Long userId, QuizAttemptStatus status);
     
     // Find attempts by date range
     @Query("SELECT qa FROM QuizAttempt qa WHERE qa.startTime BETWEEN :startDate AND :endDate")

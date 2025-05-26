@@ -119,7 +119,6 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
         return attempt;
     }
 
-    @Override
     @Transactional
     public void saveUserAnswer(Long attemptId, Long questionId, Object answer) {
         QuizAttempt attempt = getQuizAttempt(attemptId);
@@ -142,7 +141,6 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
         userAnswerRepository.save(userAnswer);
     }
 
-    @Override
     @Transactional
     public void updateUserAnswer(Long attemptId, Long questionId, Object answer) {
         QuizAttempt attempt = getQuizAttempt(attemptId);
@@ -162,11 +160,11 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
         userAnswerRepository.save(userAnswer);
     }
 
-    @Override
-    public List<?> getUserAnswers(Long attemptId) {
-        QuizAttempt attempt = getQuizAttempt(attemptId);
-        return userAnswerRepository.findByQuizAttempt(attempt);
-    }
+//    @Override
+//    public List<?> getUserAnswers(Long attemptId) {
+//        QuizAttempt attempt = getQuizAttempt(attemptId);
+//        return userAnswerRepository.findByQuizAttempt(attempt);
+//    }
 
     @Override
     public Object getQuizAttemptResult(Long attemptId) {
