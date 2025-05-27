@@ -2,14 +2,13 @@ package edu.vietgo.global.exam.entity;
 
 import edu.vietgo.global.exam.entity.base.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import org.hibernate.annotations.Fetch;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -23,6 +22,9 @@ public class Question extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
+    private String code;
+
+    @Column(nullable = false)
     private String content;
 
     @Enumerated(EnumType.STRING)
@@ -32,9 +34,16 @@ public class Question extends BaseEntity {
     @Column(nullable = false)
     private Integer difficulty;
 
+    private String image;
+
     @Column(nullable = false)
     private String category;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
+
+    @Column(name = "answer_detail")
+    private String answerDetail;
+
+    private String note;
 } 
