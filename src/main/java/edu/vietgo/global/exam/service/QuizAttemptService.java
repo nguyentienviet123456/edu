@@ -53,7 +53,7 @@ public interface QuizAttemptService {
     List<QuizAttempt> getQuizAttemptsByDateRange(LocalDateTime startDate, LocalDateTime endDate);
     
     // Get quiz attempts by score range
-    List<QuizAttempt> getQuizAttemptsByScoreRange(Integer minScore, Integer maxScore);
+    List<QuizAttempt> getQuizAttemptsByScoreRange(Double minScore, Double maxScore);
     
     // Get quiz attempts by status
     List<QuizAttempt> getQuizAttemptsByStatus(QuizAttemptStatus status);
@@ -68,7 +68,7 @@ public interface QuizAttemptService {
     Double getAverageScore(Long quizId);
     
     // Get highest score for a quiz
-    Integer getHighestScore(Long quizId);
+    Double getHighestScore(Long quizId);
     
     // Get quiz attempt review
     Object getQuizAttemptReview(Long attemptId);

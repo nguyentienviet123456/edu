@@ -20,12 +20,12 @@ public class QuizQuestion extends BaseEntity {
     private Long id;
 
     @NotNull(message = "Quiz cannot be null")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
     @NotNull(message = "Question cannot be null")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
@@ -36,6 +36,6 @@ public class QuizQuestion extends BaseEntity {
 
     @NotNull(message = "Order cannot be null")
     @Min(value = 1, message = "Order must be at least 1")
-    @Column(nullable = false)
+    @Column(nullable = false, name = "quiz_question_order")
     private Integer order;
 } 

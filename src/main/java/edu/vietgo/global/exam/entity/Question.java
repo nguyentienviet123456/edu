@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Fetch;
+
+import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -30,4 +34,7 @@ public class Question extends BaseEntity {
 
     @Column(nullable = false)
     private String category;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Answer> answers = new ArrayList<>();
 } 

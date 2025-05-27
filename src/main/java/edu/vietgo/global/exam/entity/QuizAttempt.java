@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -21,7 +23,7 @@ public class QuizAttempt extends BaseEntity {
     private Long id;
 
     @NotNull(message = "Quiz cannot be null")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
@@ -31,20 +33,20 @@ public class QuizAttempt extends BaseEntity {
 
     @NotNull(message = "Start time cannot be null")
     @Column(name = "start_time", nullable = false)
-    private java.time.LocalDateTime startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "end_time")
-    private java.time.LocalDateTime endTime;
+    private LocalDateTime endTime;
 
     @Min(value = 0, message = "Score cannot be negative")
-    @Column
-    private Integer score;
+    @Column(name = "score")
+    private Double score;
 
     @NotNull(message = "Status cannot be null")
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private QuizAttemptStatus status;
 
-    @OneToMany(mappedBy = "quizAttempt", cascade = CascadeType.ALL)
-    private List<UserAnswer> userAnswers;
+    @OneToMany(mappedBy = "quizAttempt", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserAnswer> userAnswers = new ArrayList<>();
 } 

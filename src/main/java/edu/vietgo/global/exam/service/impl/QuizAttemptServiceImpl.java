@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class QuizAttemptServiceImpl implements QuizAttemptService {
 
+    public static final double DEFAULT_SCORE = 0.0;
     private final QuizAttemptRepository quizAttemptRepository;
     private final QuizRepository quizRepository;
     private final UserAnswerRepository userAnswerRepository;
@@ -48,7 +49,7 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
         attempt.setUserId(userId);
         attempt.setStartTime(LocalDateTime.now());
         attempt.setStatus(QuizAttemptStatus.IN_PROGRESS);
-        attempt.setScore(0);
+        attempt.setScore(DEFAULT_SCORE);
 
         return quizAttemptRepository.save(attempt);
     }
@@ -65,8 +66,8 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
 
         // Calculate total score
         List<UserAnswer> userAnswers = userAnswerRepository.findByQuizAttempt(attempt);
-        int totalScore = userAnswers.stream()
-                .mapToInt(UserAnswer::getPoints)
+        double totalScore = userAnswers.stream()
+                .mapToDouble(UserAnswer::getPoints)
                 .sum();
 
         attempt.setEndTime(LocalDateTime.now());
@@ -194,7 +195,7 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
                 .orElseThrow(() -> new QuizAttemptException("Quiz not found"));
 
         Double averageScore = getAverageScore(quizId);
-        Integer highestScore = getHighestScore(quizId);
+        Double highestScore = getHighestScore(quizId);
         long totalAttempts = quizAttemptRepository.findByQuiz(quiz).size();
         long passedAttempts = quizAttemptRepository.findByQuizAndStatus(quiz, QuizAttemptStatus.SUBMITTED)
                 .stream()
@@ -222,7 +223,7 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
     }
 
     @Override
-    public List<QuizAttempt> getQuizAttemptsByScoreRange(Integer minScore, Integer maxScore) {
+    public List<QuizAttempt> getQuizAttemptsByScoreRange(Double minScore, Double maxScore) {
         return quizAttemptRepository.findByScoreRange(minScore, maxScore);
     }
 
@@ -247,7 +248,7 @@ public class QuizAttemptServiceImpl implements QuizAttemptService {
     }
 
     @Override
-    public Integer getHighestScore(Long quizId) {
+    public Double getHighestScore(Long quizId) {
         return quizAttemptRepository.getHighestScoreByQuizId(quizId);
     }
 

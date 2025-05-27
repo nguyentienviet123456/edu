@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: vietgo_postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: vietgo_user
+      POSTGRES_PASSWORD: vietgo_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vietgo_user -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vietgo_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: vietgo_postgres_data
+
+networks:
+  vietgo_network:
+    name: vietgo_network
+    driver: bridge 

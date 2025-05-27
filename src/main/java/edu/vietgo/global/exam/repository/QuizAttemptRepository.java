@@ -51,7 +51,7 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Long> 
     
     // Find attempts by score range
     @Query("SELECT qa FROM QuizAttempt qa WHERE qa.score BETWEEN :minScore AND :maxScore")
-    List<QuizAttempt> findByScoreRange(@Param("minScore") Integer minScore, @Param("maxScore") Integer maxScore);
+    List<QuizAttempt> findByScoreRange(@Param("minScore") Double minScore, @Param("maxScore") Double maxScore);
     
     // Get attempts with pagination
     Page<QuizAttempt> findAll(Pageable pageable);
@@ -75,9 +75,9 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Long> 
     
     // Get highest score for a quiz
     @Query("SELECT MAX(qa.score) FROM QuizAttempt qa WHERE qa.quiz = :quiz")
-    Integer getHighestScore(@Param("quiz") Quiz quiz);
+    Double getHighestScore(@Param("quiz") Quiz quiz);
     
     // Get highest score for a quiz ID
     @Query("SELECT MAX(qa.score) FROM QuizAttempt qa WHERE qa.quiz.id = :quizId")
-    Integer getHighestScoreByQuizId(@Param("quizId") Long quizId);
+    Double getHighestScoreByQuizId(@Param("quizId") Long quizId);
 } 

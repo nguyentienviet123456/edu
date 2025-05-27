@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -38,5 +39,5 @@ public class Quiz extends BaseEntity {
     private Boolean isPublished = false;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
-    private List<QuizQuestion> quizQuestions;
+    private List<QuizQuestion> quizQuestions = new ArrayList<>();
 } 

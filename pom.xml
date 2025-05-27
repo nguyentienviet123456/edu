@@ -11,7 +11,7 @@
 	<groupId>edu</groupId>
 	<artifactId>vietgo.global</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>vietgo.global</name>
+	<name>exam-service</name>
 	<description>Education</description>
 	<url/>
 	<licenses>
@@ -61,6 +61,18 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- SpringDoc OpenAPI UI -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
